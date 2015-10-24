@@ -1,4 +1,4 @@
-#include "salesforce_id_ext.h"
+#include "salesforce_id.h"
 #include <string.h>
 #include "repair_casing.h"
 #include "insensitive_to_sensitive.h"
