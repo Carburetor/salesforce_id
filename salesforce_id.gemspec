@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Fire-Dragon-DoL"]
   spec.email         = ["francesco.belladonna@gmail.com"]
 
-  spec.summary       = %q{Gem to handle 15 characters and 18 characters salesforce ids}
+  spec.summary       = %q{Gem to handle 15 characters and 18 characters salesforce IDs}
   spec.description   = %q{Gem to properly convert from and to 15 characters case sensitive format and 18 characters case insensitive format for salesforce record ID}
   spec.homepage      = "https://github.com/Fire-Dragon-DoL/salesforce_id"
 
