@@ -16,6 +16,12 @@ RSpec.describe SalesforceId::Safe do
     subject.new(insensitive_id)
   end
 
+  it "can be built by another salesforce id" do
+    salesforce_id = subject.new(different_id)
+
+    expect(subject.new(salesforce_id)).to eq salesforce_id
+  end
+
   it "raises when building with invalid id" do
     expect{subject.new(error_short_id)}.to raise_error ArgumentError
   end
@@ -98,6 +104,17 @@ RSpec.describe SalesforceId::Safe do
 
     it "is not a frozen string" do
       expect(subject.to_insensitive.frozen?).to be_falsy
+    end
+
+  end
+
+  describe "#dup" do
+    subject { described_class.new(sensitive_id) }
+
+    it "is equal to duplicated id" do
+      duplicate = subject.dup
+
+      expect(subject).to eq duplicate
     end
 
   end
