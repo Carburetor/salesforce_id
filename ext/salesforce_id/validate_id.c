@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stddef.h>
-#include "salesforce_id.h"
+#include "salesforce_id_ext.h"
 #include "charmap.h"
 
 // rb_sId MUST be a string

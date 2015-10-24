@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <ctype.h>
-#include "salesforce_id.h"
+#include "salesforce_id_ext.h"
 #include "charmap.h"
 
 static void append_casing_hash(char* id);

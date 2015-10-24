@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "salesforce_id.h"
+#include "salesforce_id_ext.h"
 #include "charmap.h"
 
 static void chunk_casing(const char character, bool* casing);

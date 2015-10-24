@@ -1,7 +1,7 @@
 #include "insensitive_to_sensitive.h"
 #include "ruby.h"
 #include <string.h>
-#include "salesforce_id.h"
+#include "salesforce_id_ext.h"
 #include "repair_casing.h"
 
 // rb_sId MUST be a string and of size 18
