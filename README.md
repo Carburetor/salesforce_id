@@ -55,7 +55,12 @@ SalesforceId.insensitive?(id15) # => false
 SalesforceId.insensitive?(nil)  # => false
 ```
 
-# Links
+## Documentation
+
+Methods are documented in [salesforce_id_ext.h](https://github.com/Fire-Dragon-DoL/salesforce_id/blob/master/ext/salesforce_id/salesforce_id_ext.h), this file is
+the only public API of the gem, everything else must be considered private.
+
+## Links
 
 Some useful links related to this Salesforce ID issue:
 
