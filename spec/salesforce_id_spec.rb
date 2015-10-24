@@ -102,6 +102,22 @@ RSpec.describe SalesforceId do
       expect(subject.repair_casing(broken_insensitive_id)).to eq insensitive_id
     end
 
+    it "restores casing even if already correct" do
+      expect(subject.repair_casing(insensitive_id)).to eq insensitive_id
+    end
+
+    it "raises if invalid salesforce id" do
+      expect{subject.repair_casing(error_short_id)}.to raise_error ArgumentError
+    end
+
+    it "raises if sensitive salesforce id passed" do
+      expect{subject.repair_casing(sensitive_id)}.to raise_error ArgumentError
+    end
+
+    it "raises if nil passed" do
+      expect{subject.repair_casing(nil)}.to raise_error ArgumentError
+    end
+
   end
 
 end

@@ -1,10 +1,11 @@
 #include "salesforce_id_ext.h"
 #include <string.h>
+#include <ctype.h>
+#include <stddef.h>
 #include "repair_casing.h"
 #include "insensitive_to_sensitive.h"
 #include "sensitive_to_insensitive.h"
 #include "validate_id.h"
-#include <stdio.h>
 
 VALUE rb_mSalesforceId;
 
@@ -100,14 +101,19 @@ VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId)
   if (!is_id_valid(id) || RSTRING_LEN(id) != SALESFORCE_ID_INSENSITIVE_LENGTH)
     rb_raise(rb_eArgError, "Salesforce ID is not case-insensitive format");
 
-  const int   new_id_size         = SALESFORCE_ID_INSENSITIVE_LENGTH + 1;
-        char* old_id              = StringValueCStr(id);
-        char  new_id[new_id_size] = {0};
+  // Start for insensitive characters
+  const size_t istart              = 15u;
+  const size_t sensitive_chars     = 3u;
+  const int    new_id_size         = SALESFORCE_ID_INSENSITIVE_LENGTH + 1;
+        char*  old_id              = StringValueCStr(id);
+        char   new_id[new_id_size] = {0};
 
   memcpy(new_id, old_id, new_id_size);
   repair_casing(new_id);
-  printf("FOOOOOOOOOOOOOOOOOOOOOOO new_id: %s, old_id: %s\n", new_id, old_id);
-  memcpy(&new_id[15], &old_id[15], sizeof(new_id[0]) * 3u);
+  memcpy(&new_id[istart], &old_id[istart], sizeof(new_id[0]) * sensitive_chars);
+
+  for (size_t index = 0u; index < sensitive_chars; ++index)
+    new_id[istart + index] = toupper(new_id[istart + index]);
 
   return rb_str_new2(new_id);
 }
