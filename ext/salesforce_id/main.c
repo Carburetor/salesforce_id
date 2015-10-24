@@ -4,6 +4,7 @@
 #include "insensitive_to_sensitive.h"
 #include "sensitive_to_insensitive.h"
 #include "validate_id.h"
+#include <stdio.h>
 
 VALUE rb_mSalesforceId;
 
@@ -96,8 +97,8 @@ VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId)
 {
   VALUE id = rb_obj_as_string(rb_sId);
 
-  if (!is_id_valid(id))                                    return id;
-  if (RSTRING_LEN(id) != SALESFORCE_ID_INSENSITIVE_LENGTH) return id;
+  if (!is_id_valid(id) || RSTRING_LEN(id) != SALESFORCE_ID_INSENSITIVE_LENGTH)
+    rb_raise(rb_eArgError, "Salesforce ID is not case-insensitive format");
 
   const int   new_id_size         = SALESFORCE_ID_INSENSITIVE_LENGTH + 1;
         char* old_id              = StringValueCStr(id);
@@ -105,6 +106,8 @@ VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId)
 
   memcpy(new_id, old_id, new_id_size);
   repair_casing(new_id);
+  printf("FOOOOOOOOOOOOOOOOOOOOOOO new_id: %s, old_id: %s\n", new_id, old_id);
+  memcpy(&new_id[15], &old_id[15], sizeof(new_id[0]) * 3u);
 
   return rb_str_new2(new_id);
 }

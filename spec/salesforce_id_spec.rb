@@ -95,4 +95,13 @@ RSpec.describe SalesforceId do
 
   end
 
+  describe "#repair_casing" do
+    let(:broken_insensitive_id) { insensitive_id.downcase }
+
+    it "restores correct casing" do
+      expect(subject.repair_casing(broken_insensitive_id)).to eq insensitive_id
+    end
+
+  end
+
 end

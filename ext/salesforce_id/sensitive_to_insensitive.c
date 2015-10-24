@@ -4,7 +4,6 @@
 #include <string.h>
 #include <stdint.h>
 #include <ctype.h>
-#include <stdio.h>
 #include "salesforce_id.h"
 #include "charmap.h"
 
