@@ -1,5 +1,9 @@
 # SalesforceId
 
+[![Build Status](https://api.travis-ci.org/plataformatec/devise.svg?branch=master)](https://travis-ci.org/Fire-Dragon-DoL/salesforce_id.svg?branch=master)
+[![Code Climate](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id/badges/gpa.svg)](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id)
+[![Test Coverage](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id/badges/coverage.svg)](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id/coverage)
+
 Gem to properly convert from and to 15 characters case sensitive format and
 18 characters case insensitive format for salesforce record ID.
 
