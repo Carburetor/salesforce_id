@@ -11,6 +11,8 @@ module SalesforceId
 
     # @param id [String] valid salesforce id
     def initialize(id)
+      id = id.to_s
+
       unless ::SalesforceId.valid?(id)
         raise ArgumentError, "Salesforce ID not valid"
       end
@@ -23,14 +25,23 @@ module SalesforceId
       value
     end
 
+    def as_json(*args)
+      to_s
+    end
+
+    # In JSON format, it's a plain string
+    def to_json(*args)
+      as_json
+    end
+
     def <=>(other)
-      value <=> other.value
+      to_s <=> other.to_s
     end
 
     # @return [String] salesforce id in case-sensitive format, string is **not**
     # frozen
     def to_sensitive
-      SalesforceId.to_sensitive(value.dup)
+      SalesforceId.to_sensitive(value)
     end
 
     # @return [String] salesforce id in case-insensitive format, string is
