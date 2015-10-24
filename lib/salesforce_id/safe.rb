@@ -1,4 +1,5 @@
 require 'salesforce_id'
+require 'salesforce_id/safe'
 
 module SalesforceId
 

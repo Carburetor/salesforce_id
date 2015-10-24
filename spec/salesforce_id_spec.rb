@@ -154,4 +154,18 @@ RSpec.describe SalesforceId do
 
   end
 
+  describe ".id" do
+
+    it "builds a safe salesforce id" do
+      expect(subject.id(sensitive_id)).to be_an_instance_of(subject::Safe)
+    end
+
+    it "doesn't build a salesforce id if it's already an id" do
+      salesforce_id = subject.id(insensitive_id)
+
+      expect(subject.id(salesforce_id)).to equal salesforce_id
+    end
+
+  end
+
 end
