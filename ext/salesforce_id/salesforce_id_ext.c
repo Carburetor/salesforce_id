@@ -114,11 +114,11 @@ VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId)
     rb_raise(rb_eArgError, "Salesforce ID is not case-insensitive format");
 
   // Start for insensitive characters
-  const size_t istart              = 15u;
-  const size_t sensitive_chars     = 3u;
-  const int    new_id_size         = SALESFORCE_ID_INSENSITIVE_LENGTH + 1;
-        char*  old_id              = StringValueCStr(id);
-        char   new_id[new_id_size] = {0};
+  const size_t istart          = (size_t)SALESFORCE_ID_SENSITIVE_LENGTH;
+  const size_t sensitive_chars = 3u;
+  const int    new_id_size     = SALESFORCE_ID_INSENSITIVE_STRING_LENGTH;
+        char*  old_id          = StringValueCStr(id);
+        char   new_id[SALESFORCE_ID_INSENSITIVE_STRING_LENGTH] = {0};
 
   memcpy(new_id, old_id, new_id_size);
   repair_casing(new_id);

@@ -11,9 +11,9 @@ static void chunk_casing(const char character, bool* casing);
 
 void repair_casing(char* id)
 {
-  const int    chunk_index         = SALESFORCE_ID_SENSITIVE_LENGTH;
-  const size_t casing_size         = 15u;
-        bool   casing[casing_size] = {false};
+  const int    chunk_index = SALESFORCE_ID_SENSITIVE_LENGTH;
+  const size_t casing_size = (size_t)SALESFORCE_ID_SENSITIVE_LENGTH;
+        bool   casing[SALESFORCE_ID_SENSITIVE_LENGTH] = {false};
 
   chunk_casing(id[chunk_index], casing);
   chunk_casing(id[chunk_index + 1], &casing[5]);
@@ -35,8 +35,8 @@ void repair_casing(char* id)
 // Casing is an array of size 5
 void chunk_casing(const char character, bool* casing)
 {
-  size_t casing_size = 5u;
-  int    map_index   = charmap_index(character);
+  const size_t casing_size = 5u;
+        int    map_index   = charmap_index(character);
 
   if (map_index < 0)
   {

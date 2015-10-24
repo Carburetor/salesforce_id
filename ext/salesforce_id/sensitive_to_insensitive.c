@@ -13,10 +13,9 @@ static char char_from_chunk(char* id, size_t chunk);
 // rb_sId MUST be a string and of size 15
 VALUE sensitive_to_insensitive(VALUE rb_sId)
 {
-  const int   new_id_size         = SALESFORCE_ID_INSENSITIVE_LENGTH + 1;
-  const int   id_size             = SALESFORCE_ID_SENSITIVE_LENGTH + 1;
-        char* id                  = StringValueCStr(rb_sId);
-        char  new_id[new_id_size] = {0};
+  const int   id_size = SALESFORCE_ID_SENSITIVE_STRING_LENGTH;
+        char* id      = StringValueCStr(rb_sId);
+        char  new_id[SALESFORCE_ID_INSENSITIVE_STRING_LENGTH] = {0};
 
   memcpy(new_id, id, sizeof(char) * id_size);
   append_casing_hash(new_id);
@@ -28,7 +27,7 @@ void append_casing_hash(char* id)
 {
   const int    insensitive_index = SALESFORCE_ID_SENSITIVE_LENGTH;
   const size_t chunks            = 3u;
-        char   hash[chunks]      = {'\0', '\0', '\0'};
+        char   hash[3]           = {'\0', '\0', '\0'};
 
   for (size_t chunk = 0u; chunk < chunks; ++chunk)
     hash[chunk] = char_from_chunk(id, chunk);
