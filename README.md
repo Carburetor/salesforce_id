@@ -27,13 +27,32 @@ Or install it yourself as:
 The gem can be used as easily as:
 
 ```ruby
-id15 = "asalesforceidaa"
-
-# Convert to sensitive id, 15 characters
-SalesforceId.sid(id15) # => output the id itself without changes
+id15 = "003G000001SUbc4"
+id18 = "003G000001SUbc4IAD"
 
 # Convert to insensitive id, 18 characters
-SalesforceId.iid(id16) # => output the id converted to 18 characters format
+SalesforceId.to_insensitive(id15) == id18 # => true
+
+# Convert to sensitive id, 15 characters
+SalesforceId.to_sensitive(id18) == id15 # => true
+
+# Check if salesforce id is valid
+SalesforceId.valid?(id15)  # => true
+SalesforceId.valid?(id18)  # => true
+SalesforceId.valid?("foo") # => false
+
+# Fixes casing for case-insensitive ids
+SalesforceId.repair_casing(id18.downcase) == id18 # => true
+
+# Check if id is case-sensitive format
+SalesforceId.sensitive?(id15) # => true
+SalesforceId.sensitive?(id18) # => false
+SalesforceId.sensitive?(nil)  # => false
+
+# Check if id is case-insensitive format
+SalesforceId.insensitive?(id18) # => true
+SalesforceId.insensitive?(id15) # => false
+SalesforceId.insensitive?(nil)  # => false
 ```
 
 # Links
