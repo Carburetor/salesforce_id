@@ -57,6 +57,36 @@ SalesforceId.insensitive?(id15) # => false
 SalesforceId.insensitive?(nil)  # => false
 ```
 
+There is also a simple class that is a [value object](http://www.sitepoint.com/value-objects-explained-with-ruby/) which can be used in the following way:
+
+```ruby
+id = SalesforceId::Safe.new("003G000001SUbc4")
+# Or shorter version
+id = SalesforceId.id("003G000001SUbc4")
+# It doesn't instanciate a new object if a `SalesforceId::Safe` is passed
+id2 = SalesforceId.id(id)
+id.equal?(id2) # => true
+
+# It provides a few nice methods
+id3 = SalesforceId.id("004A000002SUbc4IAD")
+
+# It always handles everything in case-insensitive repaired casing format
+id.to_s == "003G000001SUbc4IAD" # => true
+
+# It can be compared with other ids
+id == id3 # => false
+id == id  # => true
+
+# It can be converted to JSON
+id.to_json # => "003G000001SUbc4IAD"
+
+# It can be converted to case-sensitive format
+id.to_sensitive # => "003G000001SUbc4"
+
+# It can be converted to case-insensitive format
+id.to_insensitive # => "003G000001SUbc4IAD"
+```
+
 ## Documentation
 
 Methods are documented in [salesforce_id_ext.h](https://github.com/Fire-Dragon-DoL/salesforce_id/blob/master/ext/salesforce_id/salesforce_id_ext.h), this file is

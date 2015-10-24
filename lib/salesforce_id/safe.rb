@@ -35,7 +35,13 @@ module SalesforceId
       as_json
     end
 
+    # Comparison with string is avoided because otherwise either it needed to
+    # allocate a salesforce id or it would fail if not in case insensitive
+    # format
+    # @param other [SalesforceId::Safe]
     def <=>(other)
+      return nil unless other.kind_of?(self.class)
+
       to_s <=> other.to_s
     end
 

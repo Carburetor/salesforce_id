@@ -50,8 +50,8 @@ RSpec.describe SalesforceId::Safe do
   describe "#<=>" do
     subject { described_class.new(sensitive_id) }
 
-    it "can be compared with strings" do
-      expect(subject).to eq insensitive_id
+    it "can be compared only with other object of same type" do
+      expect(subject <=> insensitive_id).to be_nil
     end
 
     it "is equal to same salesforce id in other format" do
