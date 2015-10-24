@@ -19,7 +19,7 @@ RSpec.describe SalesforceId do
     expect(subject::INSENSITIVE_SIZE).to eq 18
   end
 
-  describe "#valid?" do
+  describe ".valid?" do
 
     it "is valid salesforce id" do
       expect(subject.valid?(sensitive_id)).to be_truthy
@@ -39,7 +39,7 @@ RSpec.describe SalesforceId do
 
   end
 
-  describe "#to_insensitive" do
+  describe ".to_insensitive" do
 
     it "converts correctly" do
       expect(subject.to_insensitive(sensitive_id)).to eq insensitive_id
@@ -59,7 +59,7 @@ RSpec.describe SalesforceId do
 
   end
 
-  describe "#to_sensitive" do
+  describe ".to_sensitive" do
 
     it "converts correctly" do
       expect(subject.to_sensitive(insensitive_id)).to eq sensitive_id
@@ -89,7 +89,7 @@ RSpec.describe SalesforceId do
 
   end
 
-  describe "#repair_casing" do
+  describe ".repair_casing" do
     let(:broken_insensitive_id) { insensitive_id.downcase }
 
     it "restores correct casing" do
@@ -114,7 +114,7 @@ RSpec.describe SalesforceId do
 
   end
 
-  describe "#sensitive?" do
+  describe ".sensitive?" do
 
     it "is true when id is sensitive" do
       expect(subject.sensitive?(sensitive_id)).to be_truthy
@@ -134,7 +134,7 @@ RSpec.describe SalesforceId do
 
   end
 
-  describe "#insensitive?" do
+  describe ".insensitive?" do
 
     it "is true when id is insensitive" do
       expect(subject.insensitive?(insensitive_id)).to be_truthy
@@ -150,6 +150,20 @@ RSpec.describe SalesforceId do
 
     it "is false when id is invalid" do
       expect(subject.insensitive?(error_short_id)).to be_falsy
+    end
+
+  end
+
+  describe ".id" do
+
+    it "builds a safe salesforce id" do
+      expect(subject.id(sensitive_id)).to be_an_instance_of(subject::Safe)
+    end
+
+    it "doesn't build a salesforce id if it's already an id" do
+      salesforce_id = subject.id(insensitive_id)
+
+      expect(subject.id(salesforce_id)).to equal salesforce_id
     end
 
   end
