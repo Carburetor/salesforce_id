@@ -9,7 +9,7 @@ VALUE insensitive_to_sensitive(VALUE rb_sId)
 {
   const int   new_id_size         = SALESFORCE_ID_INSENSITIVE_LENGTH + 1;
         char* id                  = StringValueCStr(rb_sId);
-        char  new_id[new_id_size] = {0};
+        char  new_id[SALESFORCE_ID_INSENSITIVE_LENGTH + 1] = {0};
 
   memcpy(new_id, id, new_id_size);
   repair_casing(new_id);
