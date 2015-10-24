@@ -1,9 +1,10 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-
 if ENV['CODECLIMATE_REPO_TOKEN ']
+  puts "Code climate test coverage enabled"
   require "codeclimate-test-reporter"
   CodeClimate::TestReporter.start
 end
+
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'salesforce_id'
 require 'pry-byebug'
