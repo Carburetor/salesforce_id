@@ -48,4 +48,18 @@ VALUE salesforce_id_is_valid(VALUE self, VALUE rb_sId);
  */
 VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId);
 
+/*
+ * Detects if given ID is case-sensitive
+ * @param rb_sId [String] salesforce id (valid or not)
+ * @return [Boolean] true if passed ID is valid case-sensitive salesforce ID
+ */
+VALUE salesforce_id_is_sensitive(VALUE self, VALUE rb_sId);
+
+/*
+ * Detects if given ID is case-insensitive
+ * @param rb_sId [String] salesforce id (valid or not)
+ * @return [Boolean] true if passed ID is valid case-insensitive salesforce ID
+ */
+VALUE salesforce_id_is_insensitive(VALUE self, VALUE rb_sId);
+
 #endif /* SALESFORCE_ID_H */

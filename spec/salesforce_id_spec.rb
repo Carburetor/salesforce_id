@@ -33,12 +33,6 @@ RSpec.describe SalesforceId do
       expect(subject.valid?(error_long_id)).to be_falsy
     end
 
-    it "is invalid when contains invalid characters" do
-      insensitive_id[-1] = "9"
-
-      expect(subject.valid?(insensitive_id)).to be_falsy
-    end
-
     it "is invalid when nil" do
       expect(subject.valid?(nil)).to be_falsy
     end
@@ -116,6 +110,46 @@ RSpec.describe SalesforceId do
 
     it "raises if nil passed" do
       expect{subject.repair_casing(nil)}.to raise_error ArgumentError
+    end
+
+  end
+
+  describe "#sensitive?" do
+
+    it "is true when id is sensitive" do
+      expect(subject.sensitive?(sensitive_id)).to be_truthy
+    end
+
+    it "is false when id is not sensitive" do
+      expect(subject.sensitive?(insensitive_id)).to be_falsy
+    end
+
+    it "is false when id is nil" do
+      expect(subject.sensitive?(nil)).to be_falsy
+    end
+
+    it "is false when id is invalid" do
+      expect(subject.sensitive?(error_short_id)).to be_falsy
+    end
+
+  end
+
+  describe "#insensitive?" do
+
+    it "is true when id is insensitive" do
+      expect(subject.insensitive?(insensitive_id)).to be_truthy
+    end
+
+    it "is false when id is not insensitive" do
+      expect(subject.insensitive?(sensitive_id)).to be_falsy
+    end
+
+    it "is false when id is nil" do
+      expect(subject.insensitive?(nil)).to be_falsy
+    end
+
+    it "is false when id is invalid" do
+      expect(subject.insensitive?(error_short_id)).to be_falsy
     end
 
   end

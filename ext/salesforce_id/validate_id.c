@@ -16,14 +16,3 @@ bool is_id_valid(VALUE rb_sId)
 
   return false;
 }
-
-bool has_valid_characters(VALUE rb_sId)
-{
-  char*  id      = StringValueCStr(rb_sId);
-  size_t id_size = strlen(id);
-
-  for (size_t index = 0u; index < id_size; ++index)
-    if (charmap_index(id[index]) < 0) return false;
-
-  return true;
-}

@@ -51,6 +51,18 @@ void Init_salesforce_id()
     salesforce_insensitive_repair_casing,
     1
   );
+  rb_define_method(
+    rb_mSalesforceId,
+    "sensitive?",
+    salesforce_id_is_sensitive,
+    1
+  );
+  rb_define_method(
+    rb_mSalesforceId,
+    "insensitive?",
+    salesforce_id_is_insensitive,
+    1
+  );
 }
 
 // Convert to 15 character case-sensitive id
@@ -89,7 +101,7 @@ VALUE salesforce_id_is_valid(VALUE self, VALUE rb_sId)
 {
   VALUE id = rb_obj_as_string(rb_sId);
 
-  if (is_id_valid(id) && has_valid_characters(id)) return Qtrue;
+  if (is_id_valid(id)) return Qtrue;
 
   return Qfalse;
 }
@@ -116,4 +128,24 @@ VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId)
     new_id[istart + index] = toupper(new_id[istart + index]);
 
   return rb_str_new2(new_id);
+}
+
+VALUE salesforce_id_is_sensitive(VALUE self, VALUE rb_sId)
+{
+  VALUE id = rb_obj_as_string(rb_sId);
+
+  if (is_id_valid(id) && (RSTRING_LEN(id) == SALESFORCE_ID_SENSITIVE_LENGTH))
+    return Qtrue;
+
+  return Qfalse;
+}
+
+VALUE salesforce_id_is_insensitive(VALUE self, VALUE rb_sId)
+{
+  VALUE id = rb_obj_as_string(rb_sId);
+
+  if (is_id_valid(id) && (RSTRING_LEN(id) == SALESFORCE_ID_INSENSITIVE_LENGTH))
+    return Qtrue;
+
+  return Qfalse;
 }
