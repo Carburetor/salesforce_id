@@ -85,6 +85,9 @@ id.to_sensitive # => "003G000001SUbc4"
 
 # It can be converted to case-insensitive format
 id.to_insensitive # => "003G000001SUbc4IAD"
+
+# Special feature, for even shorter ID creation
+SalesforceId("003G000001SUbc4") == SalesforceId.id("003G000001SUbc4") # => true
 ```
 
 ## Documentation
