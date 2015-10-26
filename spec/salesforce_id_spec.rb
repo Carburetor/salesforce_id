@@ -19,6 +19,14 @@ RSpec.describe SalesforceId do
     expect(subject::INSENSITIVE_SIZE).to eq 18
   end
 
+  it "when called as a method it performs .id" do
+    allow(SalesforceId).to receive(:id)
+
+    SalesforceId("foo")
+
+    expect(subject).to have_received(:id)
+  end
+
   describe ".valid?" do
 
     it "is valid salesforce id" do

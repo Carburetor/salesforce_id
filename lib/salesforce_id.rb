@@ -12,3 +12,7 @@ module SalesforceId
   end
 
 end
+
+def SalesforceId(salesforce_id)
+  SalesforceId.id(salesforce_id)
+end
