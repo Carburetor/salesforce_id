@@ -26,12 +26,12 @@ module SalesforceId
       value
     end
 
-    def as_json(*args)
+    def as_json(*)
       to_s
     end
 
     # In JSON format, it's a plain string
-    def to_json(*args)
+    def to_json(*)
       as_json
     end
 
@@ -40,7 +40,7 @@ module SalesforceId
     # format
     # @param other [SalesforceId::Safe]
     def <=>(other)
-      return nil unless other.kind_of?(self.class)
+      return nil unless other.is_a?(self.class)
 
       to_s <=> other.to_s
     end
