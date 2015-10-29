@@ -16,6 +16,8 @@ const char VALID_CHARMAP[VALID_CHARMAP_SIZE] = {
   '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
 };
 
+static bool is_valid_insensitive_id(char* cId);
+static bool is_valid_sensitive_id(char* cId);
 static bool is_valid_char_for_id(char idChar);
 
 // rb_sId MUST be a string
@@ -34,7 +36,27 @@ bool is_id_valid(VALUE rb_sId)
   //   Useful because it saves various allocations
   cId = StringValuePtr(rb_sId);
 
-  for (unsigned long index = 0; index < id_size; ++index)
+  if (!is_valid_sensitive_id(cId)) return false;
+  if (id_size == SALESFORCE_ID_INSENSITIVE_LENGTH &&
+      !is_valid_insensitive_id(cId)) return false;
+
+  return true;
+}
+
+bool is_valid_insensitive_id(char* cId)
+{
+  const unsigned long insensitive_size = SALESFORCE_ID_INSENSITIVE_LENGTH;
+        unsigned long index            = 0;
+
+  for (index = SALESFORCE_ID_SENSITIVE_LENGTH; index < insensitive_size; ++index)
+    if (charmap_index(cId[index]) < 0) return false;
+
+  return true;
+}
+
+bool is_valid_sensitive_id(char* cId)
+{
+  for (unsigned long index = 0; index < SALESFORCE_ID_SENSITIVE_LENGTH; ++index)
     if (!is_valid_char_for_id(cId[index])) return false;
 
   return true;

@@ -73,6 +73,14 @@ RSpec.describe SalesforceId do
       expect(subject.valid?(sensitive_id)).to be_falsy
     end
 
+    it "is invalid when of valid length but with invalid insensitive char" do
+      # Invalid insensitive char is same as sensitive and in addition last 3
+      # chars must fit into CHARMAP which is A..Z 0..5 (case insensitive)
+      insensitive_id[-1] = '9'
+
+      expect(subject.valid?(insensitive_id)).to be_falsy
+    end
+
   end
 
   describe ".to_insensitive" do
