@@ -108,11 +108,11 @@ SalesforceId::Random.invalid_sensitive # => 003G0-0001SUbc4
 
 # Generate a **invalid** case-insensitive salesforce id where the first 15
 # characters are invalid, not the checksum part
-SalesforceId::Random.insensitive # => 003-000001SUbc4IAD
+SalesforceId::Random.invalid_insensitive # => 003-000001SUbc4IAD
 
 # Generate a **invalid** case-insensitive salesforce id where only the checksum
 # part (last 3 characters) is invalid
-SalesforceId::Random.insensitive # => 003G000001SUbc4I9D
+SalesforceId::Random.invalid_insensitive_checksum # => 003G000001SUbc4I9D
 
 # Generate a valid SalesforceId::Safe salesforce id
 SalesforceId::Random.safe # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
