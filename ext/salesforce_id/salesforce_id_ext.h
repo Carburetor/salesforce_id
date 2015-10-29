@@ -16,18 +16,20 @@ extern VALUE rb_mSalesforceId;
 void Init_salesforce_id();
 
 /*
- * Converts any valid salesforce ID to case-sensitive version. Raises
- * ArgumentError if ID contains invalid characters or it's not correct length
+ * Converts any valid salesforce ID to case-sensitive version
  * @param rb_sId [String] valid salesforce id
  * @return [String] salesforce id in case-sensitive version
+ * @raise [ArgumentError] If ID contains invalid characters or it's not correct
+ *   length
  */
 VALUE salesforce_id_to_sensitive(VALUE self, VALUE rb_sId);
 
 /*
- * Converts any valid salesforce ID to case-insensitive version. Raises
- * ArgumentError if ID contains invalid characters or it's not correct length
+ * Converts any valid salesforce ID to case-insensitive version
  * @param rb_sId [String] valid salesforce id
  * @return [String] salesforce id in case-insensitive version
+ * @raise [ArgumentError] If ID contains invalid characters or it's not correct
+ *   length
  */
 VALUE salesforce_id_to_insensitive(VALUE self, VALUE rb_sId);
 
@@ -47,6 +49,8 @@ VALUE salesforce_id_is_valid(VALUE self, VALUE rb_sId);
  * @return [String] case-insensitive salesforce id with casing fixed, which
  *   means you can strip the last 3 characters to obtain the case-sensitive
  *   format
+ * @raise [ArgumentError] If ID contains invalid characters or it's not correct
+ *   length
  */
 VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId);
 
