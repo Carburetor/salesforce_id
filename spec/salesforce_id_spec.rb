@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'salesforce_id'
 require 'salesforce_id/safe'
+require 'salesforce_id/random'
 
 RSpec.describe SalesforceId do
   let(:error_short_id) { "foo" }
@@ -208,6 +209,26 @@ RSpec.describe SalesforceId do
       salesforce_id = subject.id(insensitive_id)
 
       expect(subject.id(salesforce_id)).to equal salesforce_id
+    end
+
+  end
+
+  describe ".random" do
+
+    before do
+      allow(::SalesforceId::Random).to receive(:safe).and_return(insensitive_id)
+    end
+
+    it "builds a random id using SalesforceId::Random#safe" do
+      subject.random
+
+      expect(::SalesforceId::Random).to have_received(:safe)
+    end
+
+    it "builds a random id" do
+      subject.random
+
+      expect(subject.random).to eq insensitive_id
     end
 
   end

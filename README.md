@@ -90,6 +90,35 @@ id.to_insensitive # => "003G000001SUbc4IAD"
 SalesforceId("003G000001SUbc4") == SalesforceId.id("003G000001SUbc4") # => true
 ```
 
+### Test utilities
+
+A useful utility class to generate random salesforce IDs
+
+```ruby
+# Generate a valid case-sensitive salesforce id
+SalesforceId::Random.sensitive # => 003G000001SUbc4
+
+# Generate a valid case-insensitive salesforce id
+SalesforceId::Random.insensitive # => 003G000001SUbc4IAD
+
+# Generate an **invalid** case-sensitive salesforce id
+SalesforceId::Random.invalid_sensitive # => 003G0-0001SUbc4
+
+# Generate a **invalid** case-insensitive salesforce id where the first 15
+# characters are invalid, not the checksum part
+SalesforceId::Random.insensitive # => 003-000001SUbc4IAD
+
+# Generate a **invalid** case-insensitive salesforce id where only the checksum
+# part (last 3 characters) is invalid
+SalesforceId::Random.insensitive # => 003G000001SUbc4I9D
+
+# Generate a valid SalesforceId::Safe salesforce id
+SalesforceId::Random.safe # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
+
+# Shorter version to perform `SalesforceId::Random.safe`
+SalesforceId.random # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
+```
+
 ## Documentation
 
 Methods are documented in [salesforce_id_ext.h](https://github.com/Fire-Dragon-DoL/salesforce_id/blob/master/ext/salesforce_id/salesforce_id_ext.h), this file is
