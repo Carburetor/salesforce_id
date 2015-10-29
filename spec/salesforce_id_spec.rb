@@ -19,6 +19,18 @@ RSpec.describe SalesforceId do
     expect(subject::INSENSITIVE_SIZE).to eq 18
   end
 
+  it "has array of valid characters of size 62" do
+    expect(subject::VALID_CHARACTERS.size).to eq 62
+  end
+
+  it "has an array of valid characters" do
+    valid_chars = ('a'..'z').to_a
+    valid_chars = valid_chars.concat(('A'..'Z').to_a)
+    valid_chars = valid_chars.concat(('0'..'9').to_a)
+
+    expect(subject::VALID_CHARACTERS).to eq valid_chars
+  end
+
   it "when called as a method it performs .id" do
     allow(SalesforceId).to receive(:id)
 

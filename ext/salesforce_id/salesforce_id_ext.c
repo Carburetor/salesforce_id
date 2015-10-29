@@ -9,7 +9,7 @@
 
 VALUE rb_mSalesforceId;
 
-static void define_VALID_CHARACTERS_constant();
+static VALUE VALID_CHARACTERS_to_rb();
 
 void Init_salesforce_id()
 {
@@ -27,7 +27,11 @@ void Init_salesforce_id()
     "INSENSITIVE_SIZE",
     INT2FIX(SALESFORCE_ID_INSENSITIVE_LENGTH)
   );
-  define_VALID_CHARACTERS_constant();
+  rb_define_const(
+    rb_mSalesforceId,
+    "VALID_CHARACTERS",
+    VALID_CHARACTERS_to_rb()
+  );
 
   // Methods
   rb_define_method(
@@ -153,11 +157,21 @@ VALUE salesforce_id_is_insensitive(VALUE self, VALUE rb_sId)
   return Qfalse;
 }
 
-void define_VALID_CHARACTERS_constant()
+VALUE VALID_CHARACTERS_to_rb()
 {
-  rb_define_const(
-    rb_mSalesforceId,
-    "VALID_CHARACTERS",
-    INT2FIX(SALESFORCE_ID_INSENSITIVE_LENGTH)
-  );
+  VALUE rb_Chars = Qnil;
+
+  rb_Chars = rb_ary_new2(VALID_CHARMAP_SIZE);
+
+  for (long index = 0; index < VALID_CHARMAP_SIZE; ++index)
+  {
+    char str_Char[2];
+
+    memset(&str_Char[1], 0, sizeof(str_Char[1]));
+    memset(str_Char, VALID_CHARMAP[index], sizeof(str_Char[0]));
+
+    rb_ary_store(rb_Chars, index, rb_str_new2(str_Char));
+  }
+
+  return rb_Chars;
 }

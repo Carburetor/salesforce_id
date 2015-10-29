@@ -32,7 +32,7 @@ bool is_id_valid(VALUE rb_sId)
 
   // XXX: Careful, cId is NOT NULL TERMINATED!
   //   Useful because it saves various allocations
-  cId = RSTRING_PTR(rb_sId);
+  cId = StringValuePtr(rb_sId);
 
   for (unsigned long index = 0; index < id_size; ++index)
     if (!is_valid_char_for_id(cId[index])) return false;
