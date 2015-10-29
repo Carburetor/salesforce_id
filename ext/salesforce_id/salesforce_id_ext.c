@@ -9,6 +9,8 @@
 
 VALUE rb_mSalesforceId;
 
+static void define_VALID_CHARACTERS_constant();
+
 void Init_salesforce_id()
 {
   // Module
@@ -25,6 +27,7 @@ void Init_salesforce_id()
     "INSENSITIVE_SIZE",
     INT2FIX(SALESFORCE_ID_INSENSITIVE_LENGTH)
   );
+  define_VALID_CHARACTERS_constant();
 
   // Methods
   rb_define_method(
@@ -148,4 +151,13 @@ VALUE salesforce_id_is_insensitive(VALUE self, VALUE rb_sId)
     return Qtrue;
 
   return Qfalse;
+}
+
+void define_VALID_CHARACTERS_constant()
+{
+  // rb_define_const(
+  //   rb_mSalesforceId,
+  //   "VALID_CHARACTERS",
+  //   INT2FIX(SALESFORCE_ID_INSENSITIVE_LENGTH)
+  // );
 }

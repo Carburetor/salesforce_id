@@ -45,6 +45,12 @@ RSpec.describe SalesforceId do
       expect(subject.valid?(nil)).to be_falsy
     end
 
+    it "is invalid when of valid length but with invalid chars" do
+      sensitive_id[1] = "-"
+
+      expect(subject.valid?(sensitive_id)).to be_falsy
+    end
+
   end
 
   describe ".to_insensitive" do
