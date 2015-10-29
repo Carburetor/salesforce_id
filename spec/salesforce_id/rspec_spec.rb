@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'salesforce_id'
 require 'salesforce_id/rspec'
 
 RSpec.describe ::SalesforceId::RSpec do

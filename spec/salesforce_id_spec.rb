@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'salesforce_id'
+require 'salesforce_id/safe'
 
 RSpec.describe SalesforceId do
   let(:error_short_id) { "foo" }

@@ -25,6 +25,28 @@ module ::SalesforceId
       safe.to_insensitive
     end
 
+    # Create a random salesforce id in case-sensitive format with
+    # one invalid character, making it invalid
+    # @return [String]
+    def invalid_sensitive
+      id = sensitive
+
+      id[rand(id.size)] = '-'
+
+      id
+    end
+
+    # Create a random salesforce id in case-insensitive format with
+    # one invalid character, making it invalid
+    # @return [String]
+    def invalid_insensitive
+      id = insensitive
+
+      id[rand(id.size)] = '-'
+
+      id
+    end
+
     # Creates a random salesforce id enclosed in {SalesforceId::Safe} object
     # @return [SalesforceId::Safe]
     def safe
