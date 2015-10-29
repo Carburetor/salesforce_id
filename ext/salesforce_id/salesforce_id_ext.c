@@ -155,9 +155,9 @@ VALUE salesforce_id_is_insensitive(VALUE self, VALUE rb_sId)
 
 void define_VALID_CHARACTERS_constant()
 {
-  // rb_define_const(
-  //   rb_mSalesforceId,
-  //   "VALID_CHARACTERS",
-  //   INT2FIX(SALESFORCE_ID_INSENSITIVE_LENGTH)
-  // );
+  rb_define_const(
+    rb_mSalesforceId,
+    "VALID_CHARACTERS",
+    INT2FIX(SALESFORCE_ID_INSENSITIVE_LENGTH)
+  );
 }
