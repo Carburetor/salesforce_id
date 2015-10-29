@@ -115,12 +115,12 @@ VALUE salesforce_id_is_valid(VALUE self, VALUE rb_sId)
 
 VALUE salesforce_insensitive_repair_casing(VALUE self, VALUE rb_sId)
 {
-        VALUE  id = Qnil;
   // Start for insensitive characters
   const size_t istart          = (size_t)SALESFORCE_ID_SENSITIVE_LENGTH;
   const size_t sensitive_chars = 3u;
   const int    new_id_size     = SALESFORCE_ID_INSENSITIVE_STRING_LENGTH;
         char*  old_id          = NULL;
+        VALUE  id              = Qnil;
         char   new_id[SALESFORCE_ID_INSENSITIVE_STRING_LENGTH] = {0};
 
   id     = rb_obj_as_string(rb_sId);
