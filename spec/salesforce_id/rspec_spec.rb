@@ -64,8 +64,16 @@ RSpec.describe ::SalesforceId::RSpec do
       expect(subject.to_sensitive).not_to be_safe_salesforce_id
     end
 
+    it "is safe even when converted to string format" do
+      expect(subject.to_s).to be_safe_salesforce_id
+    end
+
     it "isn't a safe salesforce id when it's not valid" do
       expect("foo").not_to be_safe_salesforce_id
+    end
+
+    it "isn't safe when not case-sensitive + checksum format" do
+      expect(subject.to_s.downcase).to be_safe_salesforce_id
     end
 
   end

@@ -92,6 +92,8 @@ SalesforceId("003G000001SUbc4") == SalesforceId.id("003G000001SUbc4") # => true
 
 ### Test utilities
 
+#### SalesforceId::Random
+
 A useful utility class to generate random salesforce IDs
 
 ```ruby
@@ -118,6 +120,40 @@ SalesforceId::Random.safe # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003
 # Shorter version to perform `SalesforceId::Random.safe`
 SalesforceId.random # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
 ```
+
+#### RSpec matchers
+
+Include `SalesforceId::RSpec` in your tests to get a bunch of salesforce id
+matchers
+
+```ruby
+RSpec.describe SalesforceId("003G000001SUbc4") do
+  include ::SalesforceId::RSpec
+  
+  it "is a sensitive salesforce id" do
+    expect(subject.to_sensitive).to be_sensitive_salesforce_id # => true
+  end
+  
+  it "is an insensitive salesforce id" do
+    expect(subject.to_insensitive).to be_insensitive_salesforce_id # => true
+  end
+
+  it "is a salesforce id" do
+    is_expected.to be_salesforce_id # => true
+  end
+
+  it "is a salesforce id in safe format (case-sensitive + checksum)" do
+    is_expected.to be_safe_salesforce_id # => true
+  end
+
+end
+```
+
+These tests will pass. Matchers will work with any object that can be converted
+into a string with `to_s`, including `SalesforceId::Safe`.
+
+One note on `be_safe_salesforce_id` matcher, it will consider safe **even
+strings** if they are of the correct format (case sensitive + checksum)
 
 ## Documentation
 
