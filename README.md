@@ -117,8 +117,15 @@ SalesforceId::Random.invalid_insensitive_checksum # => 003G000001SUbc4I9D
 # Generate a valid SalesforceId::Safe salesforce id
 SalesforceId::Random.safe # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
 
+# Generate a valid SalesforceId::Safe salesforce id with a prefix, useful for
+# factory girl sequences
+SalesforceId::Random.safe("foo") # => #<SalesforceId::Safe:0x007f86f2294c50 @value="fooG000001SUbc4IAD">
+
 # Shorter version to perform `SalesforceId::Random.safe`
 SalesforceId.random # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
+
+# Shorter version to perform `SalesforceId::Random.safe` with prefix
+SalesforceId.random("foo") # => #<SalesforceId::Safe:0x007f86f2294c50 @value="fooG000001SUbc4IAD">
 ```
 
 #### RSpec matchers

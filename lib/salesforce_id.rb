@@ -47,10 +47,13 @@ module SalesforceId
     ::SalesforceId::Safe.new(salesforce_id)
   end
 
-  # Provides a randomly generated salesforce id using {Salesforce::Random}
+  # Provides a randomly generated salesforce id.
+  # Alias of {Salesforce::Random#safe}
+  # @param prefix [String] prefix to be prepended to the id, see
+  #   {Salesforce::Random#safe} for additional details
   # @return [SalesforceId::Safe]
-  def random
-    ::SalesforceId::Random.safe
+  def random(prefix = '')
+    ::SalesforceId::Random.safe(prefix)
   end
 
 end

@@ -65,9 +65,27 @@ module ::SalesforceId
     end
 
     # Creates a random salesforce id enclosed in {SalesforceId::Safe} object
+    # @param prefix [String] an optional prefix to be prepended to the ID,
+    #   useful for FactoryGirl sequences, must use salesforce id valid
+    #   characters for case-sensitive IDs
     # @return [SalesforceId::Safe]
-    def safe
-      SalesforceId(sensitive)
+    # @raise [ArgumentError] if prefix is longer than or contains invalid
+    #   characters for case-sensitive id
+    def safe(prefix = "")
+      prefix = prefix.to_s
+
+      raise_prefix_too_long! if prefix.size > ::SalesforceId::SENSITIVE_SIZE
+
+      id = sensitive
+      id = prefix + sensitive[(prefix.size..id.size)]
+
+      SalesforceId(id)
+    end
+
+    private
+
+    def raise_prefix_too_long!
+      raise ArgumentError, "Prefix must be shorter than insensitive length"
     end
 
   end

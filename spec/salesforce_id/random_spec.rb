@@ -62,6 +62,37 @@ RSpec.describe ::SalesforceId::Random do
       is_expected.to be_salesforce_id
     end
 
+    context "with valid prefix" do
+      subject { described_class.safe("foo") }
+
+      it "is a salesforce id" do
+        is_expected.to be_salesforce_id
+      end
+
+      it "begins with prefix" do
+        expect(subject.to_s).to start_with("foo")
+      end
+
+    end
+
+    context "with too long prefix" do
+      subject { described_class.safe("a" * ::SalesforceId::INSENSITIVE_SIZE) }
+
+      it "raises ArgumentError" do
+        expect{subject}.to raise_error ArgumentError
+      end
+
+    end
+
+    context "with invalid prefix" do
+      subject { described_class.safe("a-a") }
+
+      it "raises ArgumentError" do
+        expect{subject}.to raise_error ArgumentError
+      end
+
+    end
+
   end
 
   describe ".invalid_sensitive" do
