@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'salesforce_id/rspec'
 
-RSpec.describe ::SalesforceId::RSpec, focus: true do
+RSpec.describe ::SalesforceId::RSpec do
   include ::SalesforceId::RSpec
   subject { SalesforceId("003G000001SUbc4") }
 

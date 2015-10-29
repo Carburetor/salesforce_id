@@ -31,6 +31,14 @@ RSpec.describe SalesforceId do
     expect(subject::VALID_CHARACTERS).to eq valid_chars
   end
 
+  it "has an array of valid characters frozen" do
+    expect(subject::VALID_CHARACTERS).to be_frozen
+  end
+
+  it "has an array of valid characters where all of them are frozen" do
+    expect(subject::VALID_CHARACTERS).to all be_frozen
+  end
+
   it "when called as a method it performs .id" do
     allow(SalesforceId).to receive(:id)
 

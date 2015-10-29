@@ -165,13 +165,16 @@ VALUE VALID_CHARACTERS_to_rb()
 
   for (long index = 0; index < VALID_CHARMAP_SIZE; ++index)
   {
-    char str_Char[2];
+    char  str_Char[2];
+    VALUE rb_Char;
 
     memset(&str_Char[1], 0, sizeof(str_Char[1]));
     memset(str_Char, VALID_CHARMAP[index], sizeof(str_Char[0]));
 
-    rb_ary_store(rb_Chars, index, rb_str_new2(str_Char));
+    rb_Char = rb_str_new2(str_Char);
+
+    rb_ary_store(rb_Chars, index, rb_obj_freeze(rb_Char));
   }
 
-  return rb_Chars;
+  return rb_ary_freeze(rb_Chars);
 }
