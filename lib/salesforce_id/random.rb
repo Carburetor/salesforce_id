@@ -37,12 +37,29 @@ module ::SalesforceId
     end
 
     # Create a random salesforce id in case-insensitive format with
-    # one invalid character, making it invalid
+    # one **invalid character in the case-sensitive part** (first 15
+    # characters), making it invalid
     # @return [String]
     def invalid_insensitive
       id = insensitive
 
-      id[rand(id.size)] = '-'
+      id[rand(::SalesforceId::SENSITIVE_SIZE)] = '-'
+
+      id
+    end
+
+    # Create a random salesforce id in case-insensitive format with
+    # one **invalid character in the case-insensitive part** (last 3 characters   # from 15 to 18), making it invalid
+    # @return [String]
+    def invalid_insensitive_checksum
+      id             = insensitive
+      checksum_size  = ::SalesforceId::INSENSITIVE_SIZE
+      checksum_size -= ::SalesforceId::SENSITIVE_SIZE
+
+      # Gets a random number between -1 and -3 and set that char to a valid
+      # case-sensitive character which is however invalid for case-insensitive
+      # id
+      id[(-checksum_size) + rand(checksum_size)] = '9'
 
       id
     end
