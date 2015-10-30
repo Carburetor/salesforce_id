@@ -90,7 +90,13 @@ id.to_insensitive # => "003G000001SUbc4IAD"
 SalesforceId("003G000001SUbc4") == SalesforceId.id("003G000001SUbc4") # => true
 ```
 
-Notice that `SalesforceId::Safe` can be used with Rails [serialize](http://api.rubyonrails.org/classes/ActiveRecord/Base.html#class-ActiveRecord::Base-label-Saving+arrays-2C+hashes-2C+and+other+non-mappable+objects+in+text+columns)
+### ActiveRecord integration
+
+`SalesforceId::Safe` can be used with Rails [serialize](http://api.rubyonrails.org/classes/ActiveRecord/Base.html#class-ActiveRecord::Base-label-Saving+arrays-2C+hashes-2C+and+other+non-mappable+objects+in+text+columns).
+
+To achieve full integration, `Arel` requires to inject a _visitor_ by directly
+adding a method to `Arel::Visitors::ToSql`, this is currently performed by the
+`arel.rb` file, which checks if arel gem is present and version is `~> 5.0`
 
 ### Test utilities
 
