@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'salesforce_id/safe'
+require 'salesforce_id/rspec'
 
 RSpec.describe SalesforceId::Safe do
+  include ::SalesforceId::RSpec
+
   let(:error_short_id) { "foo" }
   let(:error_long_id) { "0" * 20 }
   let(:sensitive_id)   { "003G000001SUbc4" }
@@ -116,6 +119,34 @@ RSpec.describe SalesforceId::Safe do
       duplicate = subject.dup
 
       expect(subject).to eq duplicate
+    end
+
+  end
+
+  describe ".load" do
+    subject { described_class }
+
+    it "loads a nil value as nil" do
+      expect(subject.load(nil)).to be_nil
+    end
+
+    it "builds a safe salesforce id" do
+      expect(subject.load(sensitive_id)).to be_safe_salesforce_id
+    end
+
+  end
+
+  describe ".dump" do
+    subject { described_class }
+
+    it "dumps a nil value as nil" do
+      expect(subject.dump(nil)).to be_nil
+    end
+
+    it "dumps a safe salesforce id as string" do
+      safe_id = subject.new(sensitive_id).to_s
+
+      expect(subject.dump(safe_id)).to eq safe_id.to_s
     end
 
   end

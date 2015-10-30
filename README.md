@@ -90,6 +90,8 @@ id.to_insensitive # => "003G000001SUbc4IAD"
 SalesforceId("003G000001SUbc4") == SalesforceId.id("003G000001SUbc4") # => true
 ```
 
+Notice that `SalesforceId::Safe` can be used with Rails [serialize](http://api.rubyonrails.org/classes/ActiveRecord/Base.html#class-ActiveRecord::Base-label-Saving+arrays-2C+hashes-2C+and+other+non-mappable+objects+in+text+columns)
+
 ### Test utilities
 
 #### SalesforceId::Random

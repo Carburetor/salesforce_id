@@ -57,6 +57,18 @@ module SalesforceId
       to_s.dup
     end
 
+    def self.load(value)
+      return nil if value.nil?
+
+      SalesforceId(value)
+    end
+
+    def self.dump(value)
+      return nil if value.nil?
+
+      value.to_s
+    end
+
     protected
 
     # Internal value of salesforce safe id
