@@ -6,6 +6,9 @@ end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
+require 'bundler'
+Bundler.setup(:default, :test, ENV['RAILS_ENV'])
+
 require 'pathname'
 require 'salesforce_id'
 require 'pry-byebug'
