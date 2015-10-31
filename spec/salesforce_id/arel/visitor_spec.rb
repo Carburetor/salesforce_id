@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'arel'
 require 'salesforce_id'
 require 'salesforce_id/arel/visitor'
 
@@ -24,6 +25,31 @@ RSpec.describe ::SalesforceId::Arel::Visitor do
     subject.visit_SalesforceId_Safe(salesforce_id, arel_collector)
 
     is_expected.to have_received(:quoted).with(salesforce_id.to_s, arel_collector)
+  end
+
+  describe ".injectable?" do
+    subject { described_class }
+
+    it "is injectable when Arel defined and of version AREL_REQUIRED_VERSION" do
+      stub_const("::Arel", Object)
+      stub_const("::Arel::VERSION", subject::AREL_REQUIRED_VERSION)
+
+      is_expected.to be_injectable
+    end
+
+    it "is not injectable if Arel not defined" do
+      hide_const("::Arel")
+
+      is_expected.not_to be_injectable
+    end
+
+    it "is not injectable if Arel version doesn't match required" do
+      stub_const("::Arel", Object)
+      stub_const("::Arel::VERSION", "9999999.999.999")
+
+      is_expected.not_to be_injectable
+    end
+
   end
 
 end
