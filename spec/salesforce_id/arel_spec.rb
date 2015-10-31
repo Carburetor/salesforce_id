@@ -13,6 +13,8 @@ RSpec.describe "Arel injection" do
   subject { fake_arel }
 
   it "injects ::SalesforceId::Arel::Visitor" do
+    stub_const("::Arel::VERSION", "5.0.0")
+
     load(arel_injector)
 
     is_expected.to have_received(:include).with(::SalesforceId::Arel::Visitor)
@@ -28,7 +30,6 @@ RSpec.describe "Arel injection" do
 
   it "doesn't inject if Arel is not version 5" do
     stub_const("::Arel::VERSION", "6.0.0")
-    class_double("::Gem::Dependency", new: gem_dependency)
 
     load(arel_injector)
 
