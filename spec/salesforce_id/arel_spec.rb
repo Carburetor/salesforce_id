@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'arel'
 require 'salesforce_id/arel/visitor'
 
 RSpec.describe "Arel injection" do
