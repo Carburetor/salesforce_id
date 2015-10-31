@@ -6,8 +6,11 @@ end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
+require 'pathname'
 require 'salesforce_id'
 require 'pry-byebug'
+
+SALESFORCE_ID_ROOT_PATH = Pathname.new(File.expand_path('../../', __FILE__).to_s)
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -25,6 +28,5 @@ RSpec.configure do |config|
   config.disable_monkey_patching!
   config.default_formatter = 'doc' if config.files_to_run.one?
   config.order = :random
-  # config.seed = 65061
   Kernel.srand config.seed
 end

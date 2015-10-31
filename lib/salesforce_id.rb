@@ -2,6 +2,7 @@ require 'salesforce_id/version'
 require 'salesforce_id/salesforce_id'
 require 'salesforce_id/safe'
 require 'salesforce_id/random'
+require 'salesforce_id/arel'
 
 module SalesforceId
   extend self
