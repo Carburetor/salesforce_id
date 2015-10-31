@@ -32,7 +32,7 @@ RSpec.describe ::SalesforceId::Arel::Visitor do
 
     it "is injectable when Arel defined and of version AREL_REQUIRED_VERSION" do
       stub_const("::Arel", Object)
-      stub_const("::Arel::VERSION", subject::AREL_REQUIRED_VERSION)
+      stub_const("::Arel::VERSION", "5.0.0")
 
       is_expected.to be_injectable
     end
