@@ -31,6 +31,7 @@ RSpec.describe ::SalesforceId::Arel::Visitor do
     subject { described_class }
 
     it "is injectable when Arel defined and of version AREL_REQUIRED_VERSION" do
+      stub_const("::Arel", Object)
       stub_const("::Arel::VERSION", subject::AREL_REQUIRED_VERSION)
 
       is_expected.to be_injectable
@@ -43,6 +44,7 @@ RSpec.describe ::SalesforceId::Arel::Visitor do
     end
 
     it "is not injectable if Arel version doesn't match required" do
+      stub_const("::Arel", Object)
       stub_const("::Arel::VERSION", "9999999.999.999")
 
       is_expected.not_to be_injectable
