@@ -4,7 +4,9 @@ require 'salesforce_id/arel/visitor'
 
 RSpec.describe "Arel injection" do
   let!(:fake_arel) do
-    class_double("::Arel::Visitors::ToSql", include: nil).as_stubbed_const
+    ::Arel::Visitors::ToSql.tap do |klass|
+      allow(klass).to receive(:include).and_call_original
+    end
   end
   let(:arel_injector) do
     SALESFORCE_ID_ROOT_PATH.join('lib', 'salesforce_id', 'arel.rb').to_s
