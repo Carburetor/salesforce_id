@@ -1,13 +1,12 @@
 require 'rubygems'
 
-if defined?(::Arel) && Gem::Dependency.new('arel', '~> 5.0').match?('arel', ::Arel::VERSION)
+arel_is_present   = defined?(::Arel)
+arel_is_present &&= Gem::Dependency.new('arel', '~> 5.0')
+                                   .match?('arel', ::Arel::VERSION)
 
-  class ::Arel::Visitors::ToSql
+if arel_is_present
+  require 'arel'
+  require 'salesforce_id/arel/visitor'
 
-    def visit_SalesforceId_Safe(o, collector)
-      quoted(o.to_s, collector)
-    end
-
-  end
-
+  ::Arel::Visitors::ToSql.send(:include, ::SalesforceId::Arel::Visitor)
 end

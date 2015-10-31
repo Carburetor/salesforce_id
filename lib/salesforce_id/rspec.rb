@@ -1,4 +1,3 @@
-require 'salesforce_id'
 require 'salesforce_id/rspec/be_sensitive_salesforce_id_matcher'
 require 'salesforce_id/rspec/be_insensitive_salesforce_id_matcher'
 require 'salesforce_id/rspec/be_salesforce_id_matcher'
