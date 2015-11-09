@@ -34,6 +34,16 @@ RSpec.describe SalesforceId::Safe do
     expect{subject.new(nil)}.to raise_error ArgumentError
   end
 
+  describe "#initialize" do
+    it "raises an ArgumentError if the parameter isn't valid" do
+      begin
+        SalesforceId::Safe.new(error_short_id)
+      rescue ArgumentError => err
+        expect(err.message).to eql("Salesforce ID (#{error_short_id}) not valid")
+      end
+    end
+  end
+
   describe "#to_s" do
     subject { described_class.new(sensitive_id) }
 
