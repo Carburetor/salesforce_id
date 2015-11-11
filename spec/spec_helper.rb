@@ -6,12 +6,14 @@ end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'bundler'
-Bundler.setup(:default, :test, ENV['RAILS_ENV'])
+unless ENV['IGNORE_BUNDLER']
+  require 'bundler'
+  Bundler.setup(:default, :test, ENV['RAILS_ENV'])
+end
 
+require 'pry-byebug' if Gem::Specification.find_by_name('pry-byebug')
 require 'pathname'
 require 'salesforce_id'
-require 'pry-byebug'
 
 SALESFORCE_ID_ROOT_PATH = Pathname.new(File.expand_path('../../', __FILE__).to_s)
 
