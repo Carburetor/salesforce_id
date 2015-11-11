@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'salesforce_id/rspec'
 require 'salesforce_id/safe'
 
 RSpec.describe SalesforceId::Safe do

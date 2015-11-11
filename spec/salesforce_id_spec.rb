@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'salesforce_id'
 require 'salesforce_id/safe'
 require 'salesforce_id/random'
 
