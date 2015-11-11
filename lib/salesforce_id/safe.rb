@@ -14,7 +14,7 @@ module SalesforceId
       id = id.to_s
 
       unless ::SalesforceId.valid?(id)
-        raise ArgumentError, "Salesforce ID not valid"
+        raise ArgumentError, "Salesforce ID (#{id}) not valid"
       end
 
       @value = SalesforceId.to_insensitive(id.dup).freeze
