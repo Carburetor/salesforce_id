@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'salesforce_id/safe'
-require 'salesforce_id/rspec'
 
 RSpec.describe SalesforceId::Safe do
   include ::SalesforceId::RSpec
@@ -36,11 +35,11 @@ RSpec.describe SalesforceId::Safe do
 
   describe "#initialize" do
     it "raises an ArgumentError if the parameter isn't valid" do
-      begin
+      msg = "Salesforce ID (#{error_short_id}) not valid"
+
+      expect do
         SalesforceId::Safe.new(error_short_id)
-      rescue ArgumentError => err
-        expect(err.message).to eql("Salesforce ID (#{error_short_id}) not valid")
-      end
+      end.to raise_error ArgumentError, msg
     end
   end
 
