@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Gem to handle 15 characters and 18 characters salesforce IDs}
   spec.description   = %q{Gem to properly convert from and to 15 characters case sensitive format and 18 characters case insensitive format for salesforce record ID}
-  spec.homepage      = "https://github.com/Fire-Dragon-DoL/salesforce_id"
+  spec.homepage      = "https://github.com/Carburetor/salesforce_id"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
