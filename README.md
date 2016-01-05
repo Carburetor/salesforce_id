@@ -1,5 +1,9 @@
 # SalesforceId [![Build Status](https://api.travis-ci.org/plataformatec/devise.svg?branch=master)](https://travis-ci.org/Fire-Dragon-DoL/salesforce_id.svg?branch=master) [![Code Climate](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id/badges/gpa.svg)](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id) [![Test Coverage](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id/badges/coverage.svg)](https://codeclimate.com/github/Fire-Dragon-DoL/salesforce_id/coverage) [![Gem Version](https://badge.fury.io/rb/salesforce_id.svg)](https://badge.fury.io/rb/salesforce_id)
 
+[![Join the chat at https://gitter.im/Carburetor/salesforce_id](https://badges.gitter.im/Carburetor/salesforce_id.svg)](https://gitter.im/Carburetor/salesforce_id?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Join the chat at https://gitter.im/Fire-Dragon-DoL/salesforce_id](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Fire-Dragon-DoL/salesforce_id?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Gem to properly convert from and to 15 characters case sensitive format and
 18 characters case insensitive format for salesforce record ID.
 
@@ -54,6 +58,119 @@ SalesforceId.insensitive?(id18) # => true
 SalesforceId.insensitive?(id15) # => false
 SalesforceId.insensitive?(nil)  # => false
 ```
+
+There is also a simple class that is a [value object](http://www.sitepoint.com/value-objects-explained-with-ruby/) which can be used in the following way:
+
+```ruby
+id = SalesforceId::Safe.new("003G000001SUbc4")
+# Or shorter version
+id = SalesforceId.id("003G000001SUbc4")
+# It doesn't instanciate a new object if a `SalesforceId::Safe` is passed
+id2 = SalesforceId.id(id)
+id.equal?(id2) # => true
+
+# It provides a few nice methods
+id3 = SalesforceId.id("004A000002SUbc4IAD")
+
+# It always handles everything in case-insensitive repaired casing format
+id.to_s == "003G000001SUbc4IAD" # => true
+
+# It can be compared with other ids
+id == id3 # => false
+id == id  # => true
+
+# It can be converted to JSON
+id.to_json # => "003G000001SUbc4IAD"
+
+# It can be converted to case-sensitive format
+id.to_sensitive # => "003G000001SUbc4"
+
+# It can be converted to case-insensitive format
+id.to_insensitive # => "003G000001SUbc4IAD"
+
+# Special feature, for even shorter ID creation
+SalesforceId("003G000001SUbc4") == SalesforceId.id("003G000001SUbc4") # => true
+```
+
+### ActiveRecord integration
+
+`SalesforceId::Safe` can be used with Rails [serialize](http://api.rubyonrails.org/classes/ActiveRecord/Base.html#class-ActiveRecord::Base-label-Saving+arrays-2C+hashes-2C+and+other+non-mappable+objects+in+text+columns).
+
+To achieve full integration, `Arel` requires to inject a _visitor_ by directly
+adding a method to `Arel::Visitors::ToSql`, this is currently performed by the
+`arel.rb` file, which checks if arel gem is present and version is `~> 5.0`
+
+### Test utilities
+
+#### SalesforceId::Random
+
+A useful utility class to generate random salesforce IDs
+
+```ruby
+# Generate a valid case-sensitive salesforce id
+SalesforceId::Random.sensitive # => 003G000001SUbc4
+
+# Generate a valid case-insensitive salesforce id
+SalesforceId::Random.insensitive # => 003G000001SUbc4IAD
+
+# Generate an **invalid** case-sensitive salesforce id
+SalesforceId::Random.invalid_sensitive # => 003G0-0001SUbc4
+
+# Generate a **invalid** case-insensitive salesforce id where the first 15
+# characters are invalid, not the checksum part
+SalesforceId::Random.invalid_insensitive # => 003-000001SUbc4IAD
+
+# Generate a **invalid** case-insensitive salesforce id where only the checksum
+# part (last 3 characters) is invalid
+SalesforceId::Random.invalid_insensitive_checksum # => 003G000001SUbc4I9D
+
+# Generate a valid SalesforceId::Safe salesforce id
+SalesforceId::Random.safe # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
+
+# Generate a valid SalesforceId::Safe salesforce id with a prefix, useful for
+# factory girl sequences
+SalesforceId::Random.safe("foo") # => #<SalesforceId::Safe:0x007f86f2294c50 @value="fooG000001SUbc4IAD">
+
+# Shorter version to perform `SalesforceId::Random.safe`
+SalesforceId.random # => #<SalesforceId::Safe:0x007f86f2294c50 @value="003G000001SUbc4IAD">
+
+# Shorter version to perform `SalesforceId::Random.safe` with prefix
+SalesforceId.random("foo") # => #<SalesforceId::Safe:0x007f86f2294c50 @value="fooG000001SUbc4IAD">
+```
+
+#### RSpec matchers
+
+Include `SalesforceId::RSpec` in your tests to get a bunch of salesforce id
+matchers
+
+```ruby
+RSpec.describe SalesforceId("003G000001SUbc4") do
+  include ::SalesforceId::RSpec
+  
+  it "is a sensitive salesforce id" do
+    expect(subject.to_sensitive).to be_sensitive_salesforce_id # => true
+  end
+  
+  it "is an insensitive salesforce id" do
+    expect(subject.to_insensitive).to be_insensitive_salesforce_id # => true
+  end
+
+  it "is a salesforce id" do
+    is_expected.to be_salesforce_id # => true
+  end
+
+  it "is a salesforce id in safe format (case-sensitive + checksum)" do
+    is_expected.to be_safe_salesforce_id # => true
+  end
+
+end
+```
+
+These tests will pass. Matchers will work with any object that can be converted
+into a string with `to_s`, including `SalesforceId::Safe`.
+
+One note on `be_safe_salesforce_id` matcher, it will consider safe **even
+strings** if they are of the correct format (case sensitive + checksum)
 
 ## Documentation
 
