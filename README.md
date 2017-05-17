@@ -2,6 +2,10 @@
 
 [![Join the chat at https://gitter.im/Carburetor/salesforce_id](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Carburetor/salesforce_id?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+[![Join the chat at https://gitter.im/Carburetor/salesforce_id](https://badges.gitter.im/Carburetor/salesforce_id.svg)](https://gitter.im/Carburetor/salesforce_id?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Join the chat at https://gitter.im/Fire-Dragon-DoL/salesforce_id](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Fire-Dragon-DoL/salesforce_id?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Gem to properly convert from and to 15 characters case sensitive format and
 18 characters case insensitive format for salesforce record ID.
 
